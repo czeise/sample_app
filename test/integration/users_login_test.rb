@@ -33,9 +33,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     delete logout_path
     assert_not logged_in?
     assert_redirected_to root_url
+
+    # Log out again (user tries to logout of a stale instance after they've
+    # already logged out)
+    delete logout_path
+
+    # State after logging out
     follow_redirect!
     assert_template 'static_pages/home'
-    skip
     assert_select 'a[href=?]', login_path
     assert_select 'a[href=?]', logout_path, count: 0
     assert_select 'a[href=?]', user_path(@user), count: 0
