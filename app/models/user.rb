@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
 
+  # Setting a smaller default for pagination (looks better on the index page)
+  self.per_page = 12
+
   before_save { email.downcase! }
   validates(:name, presence: true, length: { maximum: 50 })
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
