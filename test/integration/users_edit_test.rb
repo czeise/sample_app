@@ -38,4 +38,19 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal(new_name, @user.name)
     assert_equal(new_email, @user.email)
   end
+
+  test 'friendly forward to edit page' do
+    get(edit_user_path(@user))
+
+    # The logged_in_user before action of the users controller should save the
+    # forwarding url if a user isn't logged in
+    assert_not_nil(session[:forwarding_url])
+
+    log_in_as(@user)
+
+    # The url should be deleted after the user logs in and is forwarded
+    assert_nil(session[:forwarding_url])
+
+    assert_redirected_to(edit_user_path(@user))
+  end
 end
