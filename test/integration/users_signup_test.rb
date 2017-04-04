@@ -26,9 +26,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          password_confirmation: 'password' } })
     end
     follow_redirect!
-    assert_template 'users/show'
+    # assert_template 'users/show'
     assert_not flash.nil?
-    assert_select 'div.alert.alert-success', 'Welcome to the Sample App!'
-    assert logged_in?
+    assert_select(
+      'div.alert.alert-info',
+      'Please check your email to activate your account.'
+    )
+    # assert logged_in?
   end
 end
