@@ -18,8 +18,8 @@ class User < ApplicationRecord
   # Remembers a user in the database for use in persistent sessions
   def remember
     # Note, @remember_token is an instance variable, so I should be good here,
-    # but Hartl recommends using self.remember_token...in this case I believe
-    # they should behave the same
+    # but Hartl uses self.remember_token...in this case I believe they should
+    # behave the same
     @remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
@@ -30,9 +30,10 @@ class User < ApplicationRecord
   end
 
   # Returns true if the given token matches the digest
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # Returns the hash digest of the string
