@@ -48,12 +48,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test 'login with remembering' do
     log_in_as(@user) # Method remembers by default
-    assert_not_empty(cookies['remember_token'])
+
+    # `assigns(:user)` accesses the `@user` variable of the sessions controller
+    assert_equal(cookies['remember_token'], assigns(:user).remember_token)
   end
 
   test 'login without remembering' do
     log_in_as(@user) # Set a remember_me cookie with initial login
     log_in_as(@user, remember_me: '0') # Forget it!
-    assert_empty cookies['remember_token'] # Can't use symobls in tests...
+    assert_empty cookies['remember_token'] # Can't use symbols in tests...
   end
 end

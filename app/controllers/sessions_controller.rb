@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      if user.activated?
+    @user = User.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
+      if @user.activated?
         # Log the user in and redirect to the user's show page
-        normal_login(user)
+        normal_login(@user)
       else
         invalid_activation
       end
