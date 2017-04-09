@@ -1,4 +1,7 @@
 class PasswordResetsController < ApplicationController
+  before_action(:user, only: %i[edit update])
+  before_action(:valid_user, only: %i[edit update])
+
   def new
   end
 
@@ -16,5 +19,20 @@ class PasswordResetsController < ApplicationController
       flash.now[:danger] = 'Email address not found'
       render('new')
     end
+  end
+
+  private
+
+  def user
+    @user = User.find_by(email: params[:email])
+  end
+
+  # Confirm valid user
+  def valid_user
+    return if @user &&
+              @user.activated? &&
+              @user.authenticated?(:reset, params[:id])
+
+    redirect_to(root_url)
   end
 end
