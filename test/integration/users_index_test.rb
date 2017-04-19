@@ -8,6 +8,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index as admin including pagination and delete links' do
+    # skip('need to handle deleting microposts with users (13.1.4)')
     log_in_as(@admin)
 
     # Setup an inactive user on the first page
@@ -33,6 +34,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index as non-admin' do
+    # skip('need to handle deleting microposts with users (13.1.4)')
     log_in_as(@user)
     get(users_path)
     assert_template('users/index')
