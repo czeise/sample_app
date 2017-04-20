@@ -3,15 +3,26 @@
 minutes_ago:
   content: MinutesAgo
   created_at: <%= 10.minutes.ago %>
+  user: one
 
 years_ago:
   content: YearsAgo
   created_at: <%= 3.years.ago %>
+  user: one
 
 hours_ago:
   content: HoursAgo
   created_at: <%= 2.hours.ago %>
+  user: one
 
 most_recent:
   content: MostRecent
   created_at: <%= Time.zone.now %>
+  user: one
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: one
+<% end %>
