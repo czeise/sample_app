@@ -26,3 +26,23 @@ micropost_<%= n %>:
   created_at: <%= 42.days.ago %>
   user: one
 <% end %>
+
+user_two_post:
+  content: "User two's post"
+  created_at: <%= 2.years.ago %>
+  user: two
+
+user_two_post_two:
+  content: "User two's second post"
+  created_at: <%= 3.days.ago %>
+  user: two
+
+user_3_post:
+  content: "User three's post"
+  created_at: <%= 10.minutes.ago %>
+  user: user_3
+
+user_3_post_two:
+  content: "User three's second post"
+  created_at: <%= 4.hours.ago %>
+  user: user_3
