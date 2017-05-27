@@ -83,4 +83,20 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'should follow and unfollow a user' do
+    user_one = users(:one)
+    user_two = users(:two)
+
+    # No relationships intitially
+    assert_not(user_one.following?(user_two))
+
+    # Following works...
+    user_one.follow(user_two)
+    assert(user_one.following?(user_two))
+
+    # Unfollowing works...
+    user_one.unfollow(user_two)
+    assert_not(user_one.following?(user_two))
+  end
 end
