@@ -90,13 +90,16 @@ class UserTest < ActiveSupport::TestCase
 
     # No relationships intitially
     assert_not(user_one.following?(user_two))
+    assert_not(user_two.followers.include?(user_one))
 
     # Following works...
     user_one.follow(user_two)
     assert(user_one.following?(user_two))
+    assert(user_two.followers.include?(user_one))
 
     # Unfollowing works...
     user_one.unfollow(user_two)
     assert_not(user_one.following?(user_two))
+    assert_not(user_two.followers.include?(user_one))
   end
 end
