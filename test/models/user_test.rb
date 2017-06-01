@@ -85,21 +85,21 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should follow and unfollow a user' do
-    user_one = users(:one)
-    user_two = users(:two)
+    user_three = users(:user_3)
+    user_four = users(:user_4)
 
     # No relationships intitially
-    assert_not(user_one.following?(user_two))
-    assert_not(user_two.followers.include?(user_one))
+    assert_not(user_three.following?(user_four))
+    assert_not(user_four.followers.include?(user_three))
 
     # Following works...
-    user_one.follow(user_two)
-    assert(user_one.following?(user_two))
-    assert(user_two.followers.include?(user_one))
+    user_three.follow(user_four)
+    assert(user_three.following?(user_four))
+    assert(user_four.followers.include?(user_three))
 
     # Unfollowing works...
-    user_one.unfollow(user_two)
-    assert_not(user_one.following?(user_two))
-    assert_not(user_two.followers.include?(user_one))
+    user_three.unfollow(user_four)
+    assert_not(user_three.following?(user_four))
+    assert_not(user_four.followers.include?(user_three))
   end
 end
