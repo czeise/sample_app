@@ -106,7 +106,7 @@ class UserTest < ActiveSupport::TestCase
   test 'feed should have the right posts' do
     user_one = users(:one)
     # ...and poor naming strikes again...
-    user_2 = users(:user_2)
+    user_three = users(:user_3)
     user_two = users(:two)
 
     # Posts from followed user
@@ -116,11 +116,11 @@ class UserTest < ActiveSupport::TestCase
 
     # Posts from self
     user_one.microposts.each do |post_self|
-      asser(user_one.feed.include?(post_self))
+      assert(user_one.feed.include?(post_self))
     end
 
     # Posts from unfollowed user
-    user_2.microposts.each do |post_unfollowed|
+    user_three.microposts.each do |post_unfollowed|
       assert_not(user_one.feed.include?(post_unfollowed))
     end
   end

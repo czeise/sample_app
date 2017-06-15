@@ -40,13 +40,8 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_template('users/index')
     assert_select('div.pagination', count: 2)
 
-    User.paginate(page: 1).each do |user|
-      assert_select('a[href=?]', user_path(user), text: user.name)
-
-      # Non-admins shouldn't see 'delete' links
-      assert_select('a[href=?]', user_path(user), text: 'delete',
-                                                  method: :delete, count: 0)
-    end
+    # Non-admins shouldn't see 'delete' links
+    assert_select('a[href=?]', user_path(@user), text: 'delete', method: :delete, count: 0)
 
     # Non-admins can't delete users
     assert_no_difference 'User.count' do
