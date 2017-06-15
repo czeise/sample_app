@@ -83,4 +83,45 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'should follow and unfollow a user' do
+    user_three = users(:user_3)
+    user_four = users(:user_4)
+
+    # No relationships intitially
+    assert_not(user_three.following?(user_four))
+    assert_not(user_four.followers.include?(user_three))
+
+    # Following works...
+    user_three.follow(user_four)
+    assert(user_three.following?(user_four))
+    assert(user_four.followers.include?(user_three))
+
+    # Unfollowing works...
+    user_three.unfollow(user_four)
+    assert_not(user_three.following?(user_four))
+    assert_not(user_four.followers.include?(user_three))
+  end
+
+  test 'feed should have the right posts' do
+    user_one = users(:one)
+    # ...and poor naming strikes again...
+    user_three = users(:user_3)
+    user_two = users(:two)
+
+    # Posts from followed user
+    user_two.microposts.each do |post_following|
+      assert(user_one.feed.include?(post_following))
+    end
+
+    # Posts from self
+    user_one.microposts.each do |post_self|
+      assert(user_one.feed.include?(post_self))
+    end
+
+    # Posts from unfollowed user
+    user_three.microposts.each do |post_unfollowed|
+      assert_not(user_one.feed.include?(post_unfollowed))
+    end
+  end
 end
