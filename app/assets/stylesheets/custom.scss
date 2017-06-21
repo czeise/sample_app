@@ -95,10 +95,17 @@ footer {
   ul {
     float: right;
     list-style: none;
+    padding: 0;
     li {
       float: left;
       margin-left: 15px;
     }
+  }
+}
+
+@media (max-width: 767px) {
+  footer {
+    text-align: center;
   }
 }
 
@@ -285,5 +292,17 @@ span.picture {
   margin-top: 10px;
   input {
     border: 0;
+  }
+}
+
+// will_paginate styling
+.pagination {
+  @media (max-width: 767px) {
+    li {
+      display: none;
+      &.active,&.prev,&.next {
+        display: inline;
+      }
+    }
   }
 }
