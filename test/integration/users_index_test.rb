@@ -17,7 +17,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 
     get(users_path)
     assert_template('users/index')
-    assert_select('div.pagination', count: 2)
+    assert_select('ul.pagination', count: 2)
     assigns(:users).each do |user|
       assert user.activated?
       assert_select('a[href=?]', user_path(user), text: user.name)
@@ -38,7 +38,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get(users_path)
     assert_template('users/index')
-    assert_select('div.pagination', count: 2)
+    assert_select('ul.pagination', count: 2)
 
     # Non-admins shouldn't see 'delete' links
     assert_select('a[href=?]', user_path(@user), text: 'delete', method: :delete, count: 0)
