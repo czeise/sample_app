@@ -92,22 +92,28 @@ footer {
   small {
     float: left;
   }
+  nav {
+    text-align: right;
+  }
   ul {
     float: right;
     list-style: none;
     padding: 0;
     li {
-      float: left;
+      display: inline;
       margin-left: 15px;
+      text-align: right;
     }
   }
 }
 
-@media (max-width: 767px) {
-  footer {
-    text-align: center;
-  }
-}
+// @media (max-width: 767px) {
+//   footer {
+//     ul li {
+//       float: right;
+//     }
+//   }
+// }
 
 /* miscellaneous */
 
