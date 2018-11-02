@@ -37,5 +37,10 @@ If the test suite passes, you'll be ready to run the app in a local server:
 $ rails server
 ```
 
+To run tests in "watch-mode" while making updates to the codebase:
+```
+$ bundle exec guard
+```
+
 For more information, see the
 [*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
